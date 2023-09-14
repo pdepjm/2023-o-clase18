@@ -1,0 +1,34 @@
+import wollok.game.*
+import example.*
+
+
+program miJuego {
+
+	game.width(20)
+	game.height(10)
+
+	game.ground("pasto.png")
+	
+	keyboard.up().onPressDo( { pepita.moverseHaciaArriba() } )
+	keyboard.down().onPressDo( { pepita.moverseHaciaAbajo() } )
+	keyboard.left().onPressDo( { pepita.moverseHaciaIzquierda() } )
+	keyboard.right().onPressDo( { pepita.moverseHaciaDerecha() } )
+	
+	keyboard.c().onPressDo( { pepita.cambiarColorPrimario() } )
+	keyboard.v().onPressDo( { pepita.cambiarColorSecundario() } )
+	keyboard.t().onPressDo( { aviario.saludoGeneral() } )
+	
+	game.onTick(1000, "pepita cambiar color" , { pepita.cambiarColorPrimario() } )
+	
+	game.schedule(3000, {aviario.saludoGeneral()})
+	
+	game.schedule(10000, {game.removeTickEvent("pepita cambiar color")})
+	
+	game.addVisual(pepita)
+	game.addVisual(pepito)
+	game.addVisual(manolo)
+	
+	game.onCollideDo(manolo, { ave => manolo.saludar(ave) }  )
+	game.start()
+
+}
